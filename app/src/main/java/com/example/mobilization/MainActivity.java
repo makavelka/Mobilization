@@ -1,15 +1,16 @@
 package com.example.mobilization;
 
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.example.mobilization.model.data.Artist;
 import com.example.mobilization.presenter.ArtistListPresenter;
-import com.example.mobilization.presenter.Presenter;
+import com.example.mobilization.presenter.IMainPresenter;
 import com.example.mobilization.view.IMainView;
 import com.example.mobilization.view.adapter.ArtistAdapter;
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements IMainView{
 
     private ArtistAdapter mAdapter;
 
-    private Presenter mPresenter;
+    private IMainPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,12 @@ public class MainActivity extends AppCompatActivity implements IMainView{
         mRecyclerView.setLayoutManager(llm);
         mAdapter = new ArtistAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+        }));
         mPresenter.getData();
         mPresenter.onCreate(savedInstanceState);
     }

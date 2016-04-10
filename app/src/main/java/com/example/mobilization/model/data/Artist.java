@@ -1,12 +1,16 @@
 
 package com.example.mobilization.model.data;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Artist {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Artist implements Parcelable{
 
     @SerializedName("id")
     @Expose
@@ -177,4 +181,90 @@ public class Artist {
         this.cover = cover;
     }
 
+    public String getMusicCount() {
+        StringBuilder sb = new StringBuilder();
+        String albumName;
+        switch (albums% 10) {
+            case 1:
+                albumName = " альбом";
+                break;
+            case 2:
+            case 3:
+            case 4:
+                albumName = " альбома";
+                break;
+            default:
+                albumName = " альбомов";
+                break;
+
+        }
+        String trackName ;
+        switch (tracks % 10) {
+            case 1:
+                trackName = " песня";
+                break;
+            case 2:
+            case 3:
+            case 4:
+                trackName = " песни";
+                break;
+            default:
+                trackName = " песен";
+                break;
+
+        }
+        sb.append(albums)
+                .append(albumName)
+                .append(" • ")
+                .append(tracks)
+                .append(trackName);
+        return sb.toString();
+    }
+
+    public String getGenresList() {
+        return genres.toString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
+        dest.writeString(this.name);
+        dest.writeStringList(this.genres);
+        dest.writeValue(this.tracks);
+        dest.writeValue(this.albums);
+        dest.writeString(this.link);
+        dest.writeString(this.description);
+        dest.writeParcelable(this.cover, flags);
+    }
+
+    public Artist() {
+    }
+
+    protected Artist(Parcel in) {
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.name = in.readString();
+        this.genres = in.createStringArrayList();
+        this.tracks = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.albums = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.link = in.readString();
+        this.description = in.readString();
+        this.cover = in.readParcelable(Cover.class.getClassLoader());
+    }
+
+    public static final Creator<Artist> CREATOR = new Creator<Artist>() {
+        @Override
+        public Artist createFromParcel(Parcel source) {
+            return new Artist(source);
+        }
+
+        @Override
+        public Artist[] newArray(int size) {
+            return new Artist[size];
+        }
+    };
 }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Mobilization</string>
     <string name="empty_list">Нет данных для показа</string>
+    <string name="bio">Биография</string>
 </resources>

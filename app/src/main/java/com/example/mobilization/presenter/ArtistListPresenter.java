@@ -1,10 +1,11 @@
 package com.example.mobilization.presenter;
 
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
-import com.example.mobilization.ModelImpl;
 import com.example.mobilization.model.Model;
+import com.example.mobilization.model.ModelImpl;
 import com.example.mobilization.model.data.Artist;
 import com.example.mobilization.view.IMainView;
 
@@ -15,7 +16,7 @@ import rx.Observer;
 import rx.Subscription;
 import rx.subscriptions.Subscriptions;
 
-public class ArtistListPresenter implements Presenter {
+public class ArtistListPresenter implements IMainPresenter {
 
     private static final String BUNDLE_ARTIST_KEY = "BUNDLE_ARTIST_KEY";
 
@@ -60,7 +61,8 @@ public class ArtistListPresenter implements Presenter {
     }
 
     @Override
-    public void onItemClick() {
+    public void onItemClick(String position, Bitmap bmp) {
+
 
     }
 
@@ -83,6 +85,13 @@ public class ArtistListPresenter implements Presenter {
     public void onSaveInstanceState(Bundle outState) {
         if (!isListEmpty()) {
             outState.putSerializable(BUNDLE_ARTIST_KEY, new ArrayList<>(artistList));
+        }
+    }
+
+    @Override
+    public void onStop() {
+        if (!subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
         }
     }
 }

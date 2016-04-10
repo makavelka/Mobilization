@@ -1,6 +1,5 @@
-package com.example.mobilization;
+package com.example.mobilization.model;
 
-import com.example.mobilization.model.Model;
 import com.example.mobilization.model.api.ApiInterface;
 import com.example.mobilization.model.api.RetrofitModule;
 import com.example.mobilization.model.data.Artist;
