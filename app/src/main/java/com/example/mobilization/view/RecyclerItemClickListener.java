@@ -1,4 +1,4 @@
-package com.example.mobilization;
+package com.example.mobilization.view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +9,8 @@ import android.view.View;
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
 
 
-    public static interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 
     private OnItemClickListener mListener;
