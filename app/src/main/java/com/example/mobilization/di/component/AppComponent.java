@@ -6,7 +6,7 @@ import com.example.mobilization.di.modules.PresenterModule;
 import com.example.mobilization.di.modules.ViewModule;
 import com.example.mobilization.model.ModelImpl;
 import com.example.mobilization.presenter.ArtistListPresenter;
-import com.example.mobilization.view.MainActivity;
+import com.example.mobilization.view.activity.MainActivity;
 
 import javax.inject.Singleton;
 

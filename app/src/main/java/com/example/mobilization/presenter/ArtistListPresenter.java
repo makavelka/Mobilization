@@ -4,31 +4,33 @@ package com.example.mobilization.presenter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import com.example.mobilization.di.App;
 import com.example.mobilization.model.Model;
-import com.example.mobilization.model.ModelImpl;
 import com.example.mobilization.model.data.Artist;
 import com.example.mobilization.view.IMainView;
+import com.example.mobilization.view.IView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import rx.Observer;
 import rx.Subscription;
 import rx.subscriptions.Subscriptions;
 
-public class ArtistListPresenter implements IMainPresenter {
+public class ArtistListPresenter extends BasePresenter implements IArtistListPresenter {
 
     private static final String BUNDLE_ARTIST_KEY = "BUNDLE_ARTIST_KEY";
 
-    private Model model = new ModelImpl();
+    @Inject
+    Model model;
 
     private IMainView view;
     private Subscription subscription = Subscriptions.empty();
-
     private List<Artist> artistList;
+    public ArtistListPresenter() {
 
-    public ArtistListPresenter(IMainView view) {
-        this.view = view;
     }
 
     @Override
@@ -63,22 +65,22 @@ public class ArtistListPresenter implements IMainPresenter {
     @Override
     public void onItemClick(String position, Bitmap bmp) {
 
-
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            artistList = (List<Artist>) savedInstanceState.getSerializable(BUNDLE_ARTIST_KEY);
-            if (!isListEmpty()) {
-                view.showList(artistList);
-            }
-        }
-
     }
 
     private boolean isListEmpty() {
         return artistList == null || artistList.isEmpty();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState, IView view) {
+        App.getComponent().inject(this);
+        this.view = (IMainView) view;
+        if (savedInstanceState != null) {
+            artistList = (List<Artist>) savedInstanceState.getSerializable(BUNDLE_ARTIST_KEY);
+            if (!isListEmpty()) {
+                ((IMainView) view).showList(artistList);
+            }
+        }
     }
 
     @Override

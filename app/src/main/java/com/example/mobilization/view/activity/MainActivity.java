@@ -1,5 +1,6 @@
-package com.example.mobilization;
+package com.example.mobilization.view.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,19 +8,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.mobilization.R;
+import com.example.mobilization.di.App;
 import com.example.mobilization.model.data.Artist;
 import com.example.mobilization.presenter.ArtistListPresenter;
-import com.example.mobilization.presenter.IMainPresenter;
 import com.example.mobilization.view.IMainView;
+import com.example.mobilization.view.RecyclerItemClickListener;
 import com.example.mobilization.view.adapter.ArtistAdapter;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements IMainView{
+public class MainActivity extends AppCompatActivity implements IMainView {
 
     @Bind(R.id.artistList_recyclerView_mainActivity)
     RecyclerView mRecyclerView;
@@ -27,18 +33,20 @@ public class MainActivity extends AppCompatActivity implements IMainView{
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
 
+    @Inject
+    ArtistListPresenter mPresenter;
 
     private ArtistAdapter mAdapter;
 
-    private IMainPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        App.getComponent().inject(this);
         setSupportActionBar(mToolbar);
-        mPresenter = new ArtistListPresenter(this);
+        mPresenter.onCreate(savedInstanceState, this);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(llm);
         mAdapter = new ArtistAdapter(this);
@@ -50,9 +58,8 @@ public class MainActivity extends AppCompatActivity implements IMainView{
             }
         }));
         mPresenter.getData();
-        mPresenter.onCreate(savedInstanceState);
-    }
 
+    }
 
     @Override
     public void showList(List<Artist> artistList) {
@@ -77,5 +84,15 @@ public class MainActivity extends AppCompatActivity implements IMainView{
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mPresenter.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public void showToast(String message) {
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 }

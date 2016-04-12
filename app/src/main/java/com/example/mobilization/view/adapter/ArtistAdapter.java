@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mobilization.DetailActivity;
+import com.example.mobilization.view.activity.DetailActivity;
 import com.example.mobilization.R;
 import com.example.mobilization.model.data.Artist;
 import com.squareup.picasso.Picasso;

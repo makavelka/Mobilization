@@ -1,11 +1,14 @@
-package com.example.mobilization;
+package com.example.mobilization.view.activity;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.mobilization.R;
 import com.example.mobilization.model.data.Artist;
 import com.example.mobilization.view.IDetailView;
 import com.squareup.picasso.Picasso;
@@ -51,5 +54,15 @@ public class DetailActivity extends AppCompatActivity  implements IDetailView {
     @Override
     public Bitmap loadSmallImage() {
         return getIntent().getExtras().getParcelable("bitmap");
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public void showToast(String message) {
+        Toast.makeText(DetailActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 }
