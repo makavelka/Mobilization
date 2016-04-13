@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.example.mobilization.di.component.AppComponent;
 import com.example.mobilization.di.component.DaggerAppComponent;
+import com.example.mobilization.di.modules.AppModule;
 
 public class App extends Application {
 
@@ -21,6 +22,7 @@ public class App extends Application {
 
     protected AppComponent buildComponent() {
         return DaggerAppComponent.builder()
+                .appModule(new AppModule(App.this))
                 .build();
     }
 }
