@@ -1,6 +1,8 @@
 package com.example.mobilization.di.modules;
 
 import com.example.mobilization.Const;
+import com.example.mobilization.model.api.ApiInterface;
+import com.example.mobilization.model.api.ApiService;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -26,5 +28,11 @@ public class ModelModule {
     @Named(Const.IO_THREAD)
     Scheduler provideSchedulerIO() {
         return Schedulers.io();
+    }
+
+    @Provides
+    @Singleton
+    ApiInterface provideArtistService() {
+        return new ApiService().getApiService();
     }
 }
