@@ -12,6 +12,7 @@ import com.example.mobilization.model.api.PicassoService;
 import com.example.mobilization.model.api.ResponseCacheInterceptor;
 import com.example.mobilization.presenter.ArtistListPresenter;
 import com.example.mobilization.presenter.BasePresenter;
+import com.example.mobilization.view.activity.DetailActivity;
 import com.example.mobilization.view.activity.MainActivity;
 import com.example.mobilization.view.adapter.ArtistAdapter;
 
@@ -31,4 +32,5 @@ public interface AppComponent {
     void inject(ApiService api);
     void inject(ArtistAdapter adapter);
     void inject(PicassoService picassoService);
+    void inject(DetailActivity activity);
 }

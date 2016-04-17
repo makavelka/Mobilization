@@ -4,14 +4,18 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobilization.R;
+import com.example.mobilization.di.App;
 import com.example.mobilization.model.data.Artist;
 import com.example.mobilization.view.IDetailView;
 import com.squareup.picasso.Picasso;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,12 +30,18 @@ public class DetailActivity extends AppCompatActivity  implements IDetailView {
     TextView mGenres;
     @Bind(R.id.cover_imageView_detailActivity)
     ImageView mCover;
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
+
+    @Inject
+    Picasso mPicasso;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        App.getComponent().inject(this);
         ButterKnife.bind(this);
         showData(loadDataFromIntent());
     }
@@ -46,8 +56,10 @@ public class DetailActivity extends AppCompatActivity  implements IDetailView {
         mBio.setText(artist.getDescription());
         mCount.setText(artist.getMusicCount());
         mGenres.setText(artist.getGenresList());
-        Picasso.with(this)
+        mPicasso.with(this)
                 .load(artist.getCover().getBig())
+                .placeholder(R.drawable.placeholder_big)
+                .fit()
                 .into(mCover);
     }
 
