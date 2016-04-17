@@ -3,6 +3,10 @@ package com.example.mobilization.di.modules;
 import com.example.mobilization.Const;
 import com.example.mobilization.model.api.ApiInterface;
 import com.example.mobilization.model.api.ApiService;
+import com.example.mobilization.model.api.PicassoService;
+import com.example.mobilization.model.api.Uil;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -34,5 +38,17 @@ public class ModelModule {
     @Singleton
     ApiInterface provideArtistService() {
         return new ApiService().getApiService();
+    }
+
+    @Provides
+    @Singleton
+    ImageLoader provideImageLoader() {
+        return new Uil().getImageLoader();
+    }
+
+    @Provides
+    @Singleton
+    Picasso providePicasso() {
+        return new PicassoService().getPicasso();
     }
 }

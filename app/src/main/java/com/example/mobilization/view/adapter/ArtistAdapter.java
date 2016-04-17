@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
@@ -15,25 +14,40 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mobilization.view.activity.DetailActivity;
 import com.example.mobilization.R;
+import com.example.mobilization.di.App;
 import com.example.mobilization.model.data.Artist;
+import com.example.mobilization.view.activity.DetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+/**
+ * Адаптер, предназначенный для вывода данных об исполнителе в RecyclerView
+ */
 
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder> {
 
     private List<Artist> artistList = new ArrayList<>();
     private Context mContext;
 
+    @Inject Picasso mPicasso;
+
     public ArtistAdapter(Context mContext) {
+        App.getComponent().inject(this);
         this.mContext = mContext;
     }
+
+    /**
+     * Метод выводящий переданный список на экран
+     * @param repoList - список исполнителей
+     */
 
     public void setArtistList(List<Artist> repoList) {
         this.artistList = repoList;
@@ -56,26 +70,37 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
         holder.view.setOnClickListener(e -> {
             Intent intent = new Intent(mContext, DetailActivity.class);
             intent.putExtra("data", artist);
-            intent.putExtra("image", ((BitmapDrawable)holder.cover.getDrawable()).getBitmap());
+//            intent.putExtra("image", ((BitmapDrawable)holder.cover.getDrawable()).getBitmap());
             if (Build.VERSION.SDK_INT < 21) {
                 mContext.startActivity(intent);
             } else {
                 Pair<View, String> p1 = Pair.create(holder.count, "count");
                 Pair<View, String> p2 = Pair.create(holder.genres, "genre");
-                Pair<View, String> p3 = Pair.create(holder.cover, "cover");
+//                Pair<View, String> p3 = Pair.create(holder.cover, "cover");
                 ActivityOptions options = ActivityOptions
-                        .makeSceneTransitionAnimation((Activity) mContext, p1, p2, p3);
+                        .makeSceneTransitionAnimation((Activity) mContext, p1, p2);
                 mContext.startActivity(intent, options.toBundle());
             }
         });
-        Picasso.with(mContext).load(artist.getCover().getSmall()).placeholder(android.R.drawable.ic_dialog_info).into(holder.cover);
+        mPicasso.with(mContext)
+                .load(artist.getCover().getSmall())
+                .placeholder(R.drawable.placeholder_small)
+                .into(holder.cover);
     }
 
+
+    /**
+     *
+     * @return количество записей в адаптере
+     */
     @Override
     public int getItemCount() {
         return artistList.size();
     }
 
+    /**
+     * Инициализация ViewHolder
+     */
     class ViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.cover_imageView_itemArtist)
