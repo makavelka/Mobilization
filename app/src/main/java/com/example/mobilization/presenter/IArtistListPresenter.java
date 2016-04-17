@@ -6,6 +6,4 @@ public interface IArtistListPresenter extends Presenter{
     void getData();
     void onItemClick(String position, Bitmap image);
     void onStop();
-
-
 }

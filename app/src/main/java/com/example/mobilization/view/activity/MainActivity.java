@@ -29,9 +29,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     @Bind(R.id.artistList_recyclerView_mainActivity)
     RecyclerView mRecyclerView;
-
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
+    @Bind(R.id.noData_layout_mainActivity)
+    View mNoData;
 
     @Inject
     ArtistListPresenter mPresenter;
@@ -43,8 +44,11 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Биндим компоненты интерфейса
         ButterKnife.bind(this);
+        //Вызываем метод внедрения компонент из класса App
         App.getComponent().inject(this);
+        //Устанавливаем кастомный тулбар
         setSupportActionBar(mToolbar);
         mPresenter.onCreate(savedInstanceState, this);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -77,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     @Override
     public void showEmptyList() {
-        makeToast(getString(R.string.empty_list));
+        mRecyclerView.setVisibility(View.GONE);
+        mNoData.setVisibility(View.VISIBLE);
     }
 
     @Override

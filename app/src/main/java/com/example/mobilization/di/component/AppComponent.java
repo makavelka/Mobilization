@@ -8,10 +8,12 @@ import com.example.mobilization.di.modules.UtilsModule;
 import com.example.mobilization.di.modules.ViewModule;
 import com.example.mobilization.model.ModelImpl;
 import com.example.mobilization.model.api.ApiService;
+import com.example.mobilization.model.api.PicassoService;
 import com.example.mobilization.model.api.ResponseCacheInterceptor;
 import com.example.mobilization.presenter.ArtistListPresenter;
 import com.example.mobilization.presenter.BasePresenter;
 import com.example.mobilization.view.activity.MainActivity;
+import com.example.mobilization.view.adapter.ArtistAdapter;
 
 import javax.inject.Singleton;
 
@@ -27,4 +29,6 @@ public interface AppComponent {
     void inject(Utils utils);
     void inject(ResponseCacheInterceptor interceptor);
     void inject(ApiService api);
+    void inject(ArtistAdapter adapter);
+    void inject(PicassoService picassoService);
 }

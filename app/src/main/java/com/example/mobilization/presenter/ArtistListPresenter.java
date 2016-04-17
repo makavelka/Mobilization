@@ -47,7 +47,8 @@ public class ArtistListPresenter extends BasePresenter implements IArtistListPre
 
                     @Override
                     public void onError(Throwable e) {
-                        view.showError(e.getMessage());
+                        view.showEmptyList();
+                        e.printStackTrace();
                     }
 
                     @Override
