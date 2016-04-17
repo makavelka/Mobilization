@@ -12,6 +12,9 @@ public class Utils {
     @Inject
     Context mContext;
 
+    /**
+     * В конструкторе делаем инъекцию необходимых нам данных
+     */
     public Utils() {
         App.getComponent().inject(this);
     }
