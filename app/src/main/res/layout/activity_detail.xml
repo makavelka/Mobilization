@@ -1,57 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".view.activity.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/cover_imageView_detailActivity"
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:scaleType="center"
-            android:layout_height="wrap_content"
-            android:transitionName="cover" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" />
 
-        <TextView
-            android:id="@+id/genres_textView_detailActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:transitionName="genre"
-            tools:text="music, fusic" />
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/count_textView_detailActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:transitionName="count"
-            tools:text="30 albums, 40 tracks" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/bio"
-            tools:text="Biografy" />
+                <ImageView
+                    android:id="@+id/cover_imageView_detailActivity"
+                    android:layout_width="wrap_content"
+                    android:scaleType="centerInside"
+                    android:layout_height="wrap_content"
+                    android:transitionName="cover" />
 
-        <TextView
-            android:id="@+id/biografy_textView_detailActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            tools:text="Biografy" />
+                <TextView
+                    android:id="@+id/genres_textView_detailActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:transitionName="genre"
+                    tools:text="music, fusic" />
+
+                <TextView
+                    android:id="@+id/count_textView_detailActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:transitionName="count"
+                    android:layout_margin="8dp"
+                    tools:text="30 albums, 40 tracks" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:text="@string/bio"
+                    android:layout_margin="8dp"
+                    tools:text="Biografy" />
+
+                <TextView
+                    android:id="@+id/biografy_textView_detailActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:layout_margin="8dp"
+                    tools:text="Biografy" />
 
 
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-</ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
+
