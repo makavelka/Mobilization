@@ -1,10 +1,11 @@
 package com.example.mobilization.view.activity;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +21,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DetailActivity extends AppCompatActivity  implements IDetailView {
+public class DetailActivity extends AppCompatActivity implements IDetailView, NavigationView.OnNavigationItemSelectedListener {
 
     @Bind(R.id.biografy_textView_detailActivity)
     TextView mBio;
@@ -30,8 +31,10 @@ public class DetailActivity extends AppCompatActivity  implements IDetailView {
     TextView mGenres;
     @Bind(R.id.cover_imageView_detailActivity)
     ImageView mCover;
-    @Bind(R.id.toolbar)
+    @Bind(R.id.toolbar_detailActivity)
     Toolbar mToolbar;
+    @Bind(R.id.title_textView_toolbar)
+    TextView mTitle;
 
     @Inject
     Picasso mPicasso;
@@ -44,6 +47,10 @@ public class DetailActivity extends AppCompatActivity  implements IDetailView {
         App.getComponent().inject(this);
         ButterKnife.bind(this);
         showData(loadDataFromIntent());
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     @Override
@@ -56,8 +63,9 @@ public class DetailActivity extends AppCompatActivity  implements IDetailView {
         mBio.setText(artist.getDescription());
         mCount.setText(artist.getMusicCount());
         mGenres.setText(artist.getGenresList());
+        mTitle.setText(artist.getName());
         mPicasso.with(this)
-                .load(artist.getCover().getBig())
+                .load(artist.getCover().getSmall())
                 .placeholder(R.drawable.placeholder_big)
                 .fit()
                 .into(mCover);
@@ -69,12 +77,12 @@ public class DetailActivity extends AppCompatActivity  implements IDetailView {
     }
 
     @Override
-    public Context getContext() {
-        return this;
+    public void showToast(String message) {
+        Toast.makeText(DetailActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showToast(String message) {
-        Toast.makeText(DetailActivity.this, message, Toast.LENGTH_SHORT).show();
+    public boolean onNavigationItemSelected(MenuItem item) {
+        return false;
     }
 }

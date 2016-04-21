@@ -9,7 +9,7 @@ import dagger.Provides;
 public class ViewModule {
 
     @Provides
-    ArtistListPresenter provideRepoInfoPresenter() {
+    ArtistListPresenter provideArtistListPresenter() {
         return new ArtistListPresenter();
     }
 }

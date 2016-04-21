@@ -222,7 +222,12 @@ public class Artist implements Parcelable{
     }
 
     public String getGenresList() {
-        return genres.toString();
+        String list = "";
+        for (String s: genres) {
+            list += s + " / ";
+        }
+        list = list.substring(0, list.length()-2);
+        return list;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.example.mobilization.view.activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +15,7 @@ import com.example.mobilization.model.data.Artist;
 import com.example.mobilization.presenter.ArtistListPresenter;
 import com.example.mobilization.view.IMainView;
 import com.example.mobilization.view.RecyclerItemClickListener;
+import com.example.mobilization.view.SimpleDividerItemDecoration;
 import com.example.mobilization.view.adapter.ArtistAdapter;
 
 import java.util.List;
@@ -50,19 +50,20 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         App.getComponent().inject(this);
         //Устанавливаем кастомный тулбар
         setSupportActionBar(mToolbar);
-        mPresenter.onCreate(savedInstanceState, this);
+
         LinearLayoutManager llm = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(llm);
         mAdapter = new ArtistAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getResources()));
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
 
             }
         }));
+        mPresenter.onCreate(savedInstanceState, this);
         mPresenter.getData();
-
     }
 
     @Override
@@ -89,11 +90,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mPresenter.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
     }
 
     @Override
