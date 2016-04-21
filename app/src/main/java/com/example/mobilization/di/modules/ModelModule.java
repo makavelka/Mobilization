@@ -3,8 +3,6 @@ package com.example.mobilization.di.modules;
 import com.example.mobilization.Const;
 import com.example.mobilization.model.api.ApiInterface;
 import com.example.mobilization.model.api.ApiService;
-import com.example.mobilization.model.api.PicassoService;
-import com.squareup.picasso.Picasso;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -38,9 +36,4 @@ public class ModelModule {
         return new ApiService().getApiService();
     }
 
-    @Provides
-    @Singleton
-    Picasso providePicasso() {
-        return new PicassoService().getPicasso();
-    }
 }
