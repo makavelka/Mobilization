@@ -30,7 +30,7 @@ public class ArtistListPresenter extends BasePresenter implements IArtistListPre
     private Subscription subscription = Subscriptions.empty();
     private List<Artist> artistList;
     public ArtistListPresenter() {
-
+        App.getComponent().inject(this);
     }
 
     @Override
