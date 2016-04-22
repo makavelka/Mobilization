@@ -12,11 +12,16 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testApplicationId "com.example.mobilization.test"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled = true
         }
     }
     compileOptions {
@@ -25,11 +30,16 @@ android {
     }
 
     sourceSets {
-        test {
-            java {
-                exclude '**/integration//**'
-            }
+//        test {
+//            java {
+//                exclude '**/integration//**'
+//            }
+//        }
+        // Espresso instrumentation tests
+        androidTest {
+            assets.srcDirs = ['src/androidTest/assets']
         }
+        androidTest.setRoot('src/androidTest')
     }
 }
 
@@ -41,6 +51,16 @@ repositories {
 
 repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+}
+
+task runCucuTests(type: Exec, dependsOn: 'installDebug') {
+    commandLine "${android.sdkDirectory}" + "/platform-tools/adb", 'shell', 'am', 'instrument', '-e', 'com.example.mobilization.CucumberActivitySteps', '/',
+            '-w', 'com.example.mobilization/.Instrumentation', 'echo', 'on'
+//    finalizedBy('afterTests')
+}
+
+task afterTests(type: Exec, dependsOn: runCucuTests) {
+    commandLine "${android.sdkDirectory}" + "/platform-tools/adb", 'pull', "/sdcard/com.example.mobilization/html", System.getProperty("user.dir") + "/cucumber_reports"
 }
 
 
@@ -87,16 +107,42 @@ dependencies {
 //        exclude group: 'com.android.support', module: 'support-annotations'
 //        exclude module: 'recyclerview-v7'
 //    }
-    androidTestCompile 'com.google.truth:truth:0.25'
-    androidTestCompile 'com.android.support.test:runner:0.4.1'
-    androidTestCompile 'com.android.support.test:rules:0.3'
+//    androidTestCompile 'com.google.truth:truth:0.25'
+//    androidTestCompile 'com.android.support.test:runner:0.4.1'
+//    androidTestCompile 'com.android.support.test:rules:0.3'
     androidTestCompile 'com.android.support:support-annotations:23.2.1'
-    androidTestCompile 'com.squareup.okhttp:mockwebserver:2.7.0'
-    androidTestCompile 'org.mockito:mockito-core:1.10.19'
-    androidTestCompile 'com.mosn:asyncmockwebserver:1.0.0'
+//    androidTestCompile 'com.squareup.okhttp:mockwebserver:2.7.0'
+//    androidTestCompile 'org.mockito:mockito-core:1.10.19'
+//    androidTestCompile 'com.mosn:asyncmockwebserver:1.0.0'
+
+//    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+//    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2') {
+//        // Necessary to avoid version conflicts
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+//        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestCompile ('com.android.support.test.espresso:espresso-core:2.2') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile ('com.android.support.test:runner:0.3') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile ('com.android.support.test:rules:0.3') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+//    androidTestCompile 'com.android.support.test:runner:0.4.1'
+//    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    androidTestCompile 'info.cukes:cucumber-picocontainer:1.2.0'
+    androidTestCompile 'info.cukes:cucumber-android:1.2.0@jar'
+
 }
 
 apply plugin: 'jacoco'
+
+//JaCoCo integrayy
 
 jacoco {
     toolVersion = "0.7.1.201405082137"

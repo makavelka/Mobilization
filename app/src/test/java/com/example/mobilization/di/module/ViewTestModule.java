@@ -1,6 +1,7 @@
 package com.example.mobilization.di.module;
 
 import com.example.mobilization.presenter.ArtistListPresenter;
+import com.example.mobilization.presenter.DetailPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,5 +14,10 @@ public class ViewTestModule  {
     @Provides
     ArtistListPresenter provideArtistListPresenter() {
         return mock(ArtistListPresenter.class);
+    }
+
+    @Provides
+    DetailPresenter provideDetailPresenter() {
+        return mock(DetailPresenter.class);
     }
 }

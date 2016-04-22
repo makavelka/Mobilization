@@ -54,4 +54,11 @@ public class ModelTestModule extends ModelModule {
         Artist[] artists = testUtils.getGson().fromJson(testUtils.readString("json/test.json"), Artist[].class);
         return Arrays.asList(artists);
     }
+
+    @Provides
+    @Singleton
+    Artist provideArtis() {
+        Artist[] artists = testUtils.getGson().fromJson(testUtils.readString("json/test.json"), Artist[].class);
+        return artists[0];
+    }
 }

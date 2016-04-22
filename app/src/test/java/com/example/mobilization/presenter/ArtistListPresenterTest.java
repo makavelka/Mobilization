@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.example.mobilization.BaseTest;
 import com.example.mobilization.model.Model;
 import com.example.mobilization.model.data.Artist;
-import com.example.mobilization.view.activity.MainActivity;
+import com.example.mobilization.view.IMainView;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,16 +29,16 @@ public class ArtistListPresenterTest extends BaseTest {
     @Inject
     protected List<Artist> artistList;
 
-    private MainActivity mockView;
-    private ArtistListPresenter artistListPresenter;
+    private IMainView mockView;
+    private ArtistListPresenter mArtistListPresenter;
 
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
         component.inject(this);
-        mockView = mock(MainActivity.class);
-        artistListPresenter = new ArtistListPresenter();
+        mockView = mock(IMainView.class);
+        mArtistListPresenter = new ArtistListPresenter(mockView);
         doAnswer(invocation -> Observable.just(artistList))
                 .when(model)
                 .getArtistList();
@@ -46,9 +46,9 @@ public class ArtistListPresenterTest extends BaseTest {
 
     @Test
     public void testLoadData() {
-        artistListPresenter.onCreate(null, mockView);
-        artistListPresenter.getData();
-        artistListPresenter.onStop();
+        mArtistListPresenter.onCreate(null, mockView);
+        mArtistListPresenter.getData();
+        mArtistListPresenter.onStop();
         verify(mockView).showList(artistList);
     }
 
@@ -57,7 +57,7 @@ public class ArtistListPresenterTest extends BaseTest {
         doAnswer(invocation -> Observable.just(null))
                 .when(model)
                 .getArtistList();
-        artistListPresenter.getData();
+        mArtistListPresenter.getData();
         verify(mockView).showEmptyList();
     }
 
@@ -66,21 +66,18 @@ public class ArtistListPresenterTest extends BaseTest {
         doAnswer(invocation -> Observable.error(new Throwable()))
                 .when(model)
                 .getArtistList();
-        artistListPresenter.getData();
-        verify(mockView).showError("ERROR");
+        mArtistListPresenter.getData();
+        verify(mockView).showError("error");
     }
 
     @Test
     public void testSaveState() {
-        artistListPresenter.onCreate(null, mockView);
-        artistListPresenter.getData();
-
+        mArtistListPresenter.onCreate(null, mockView);
+        mArtistListPresenter.getData();
         Bundle bundle = Bundle.EMPTY;
-        artistListPresenter.onSaveInstanceState(bundle);
-        artistListPresenter.onStop();
-
-        artistListPresenter.onCreate(bundle, mockView);
-
+        mArtistListPresenter.onSaveInstanceState(bundle);
+        mArtistListPresenter.onStop();
+        mArtistListPresenter.onCreate(bundle, mockView);
         verify(mockView, times(2)).showList(artistList);
         verify(model).getArtistList();
     }

@@ -3,6 +3,7 @@ package com.example.mobilization.view;
 import android.os.Bundle;
 
 import com.example.mobilization.BaseTest;
+import com.example.mobilization.model.data.Artist;
 import com.example.mobilization.presenter.ArtistListPresenter;
 import com.example.mobilization.view.activity.MainActivity;
 
@@ -11,17 +12,21 @@ import org.junit.Test;
 import org.robolectric.Robolectric;
 import org.robolectric.util.ActivityController;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static junit.framework.Assert.assertNotNull;
 
 public class MainActivityTest extends BaseTest {
 
     @Inject
-    ArtistListPresenter artistListPresenter;
+    protected ArtistListPresenter mArtistListPresenter;
 
-    private MainActivity activity;
+    @Inject
+    List<Artist> mArtistList;
+
+    private MainActivity mActivity;
     private ActivityController controller;
     private Bundle bundle;
 
@@ -30,27 +35,14 @@ public class MainActivityTest extends BaseTest {
     public void setUp() throws Exception {
         super.setUp();
         component.inject(this);
-        controller = Robolectric.buildActivity(MainActivity.class).create();
-        activity = (MainActivity) controller.get();
+//        controller = Robolectric.buildActivity(MainActivity.class).create();
         bundle = new Bundle();
     }
 
-
     @Test
-    public void testOnCreate() {
-        controller.create();
-        verify(artistListPresenter, times(2)).onCreate(null, activity); //2 times setUp() + testOnCreate()
-    }
-
-    @Test
-    public void testOnStop() {
-        controller.stop();
-        verify(artistListPresenter).onStop();
-    }
-
-    @Test
-    public void testOnSaveInstanceState() {
-        controller.saveInstanceState(bundle);
-        verify(artistListPresenter).onSaveInstanceState(bundle);
+    public void checkActivityNotNull() throws Exception {
+        mActivity = Robolectric.buildActivity(MainActivity.class).create().get();
+        mArtistListPresenter.onCreate(bundle, mActivity);
+        assertNotNull(mActivity);
     }
 }
