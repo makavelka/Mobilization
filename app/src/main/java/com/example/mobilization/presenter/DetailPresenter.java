@@ -6,6 +6,8 @@ import com.example.mobilization.model.data.Artist;
 import com.example.mobilization.view.IDetailView;
 import com.example.mobilization.view.IView;
 
+import javax.inject.Inject;
+
 import rx.Subscription;
 import rx.subscriptions.Subscriptions;
 
@@ -15,6 +17,15 @@ public class DetailPresenter implements IDetailPresenter {
     private Subscription subscription = Subscriptions.empty();
     private IDetailView view;
     private Artist artist;
+
+    @Inject
+    public DetailPresenter() {
+    }
+
+    public DetailPresenter(IDetailView view, Artist artist) {
+        this.view = view;
+        this.artist = artist;
+    }
 
     @Override
     public void showData(Artist artist) {

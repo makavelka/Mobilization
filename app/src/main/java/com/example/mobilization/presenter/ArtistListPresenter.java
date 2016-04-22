@@ -28,8 +28,15 @@ public class ArtistListPresenter extends BasePresenter implements IArtistListPre
     private IMainView view;
     private Subscription subscription = Subscriptions.empty();
     private List<Artist> artistList;
+
+    @Inject
     public ArtistListPresenter() {
+//        App.getComponent().inject(this);
+    }
+
+    public ArtistListPresenter(IMainView view) {
         App.getComponent().inject(this);
+        this.view = view;
     }
 
     @Override
