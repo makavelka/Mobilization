@@ -1,7 +1,6 @@
 package com.example.mobilization.presenter;
 
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import com.example.mobilization.di.App;
@@ -61,11 +60,6 @@ public class ArtistListPresenter extends BasePresenter implements IArtistListPre
                         }
                     }
                 });
-    }
-
-    @Override
-    public void onItemClick(String position, Bitmap bmp) {
-
     }
 
     private boolean isListEmpty() {
