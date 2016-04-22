@@ -1,7 +1,7 @@
 package com.example.mobilization.view.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +14,6 @@ import com.example.mobilization.di.App;
 import com.example.mobilization.model.data.Artist;
 import com.example.mobilization.presenter.ArtistListPresenter;
 import com.example.mobilization.view.IMainView;
-import com.example.mobilization.view.RecyclerItemClickListener;
 import com.example.mobilization.view.SimpleDividerItemDecoration;
 import com.example.mobilization.view.adapter.ArtistAdapter;
 
@@ -33,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     Toolbar mToolbar;
     @Bind(R.id.noData_layout_mainActivity)
     View mNoData;
+    @Bind(R.id.swipeRefreshLayout_mainActivity)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Inject
     ArtistListPresenter mPresenter;
@@ -50,47 +51,74 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         App.getComponent().inject(this);
         //Устанавливаем кастомный тулбар
         setSupportActionBar(mToolbar);
-
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(llm);
+        //Задание менеджера - вертикального списка для вывода исполнителей
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new ArtistAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
+        //Устанавливаем разделители в списке
         mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getResources()));
-        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-            }
-        }));
+        //Обновление данных при свайпе в начале списка
+        mSwipeRefreshLayout.setOnRefreshListener(() -> mPresenter.getData());
+        //Сохранение состояния экрана в презентер
         mPresenter.onCreate(savedInstanceState, this);
+        //Загрузка данных из интернета
         mPresenter.getData();
+        //Вывод прогрессбара на экран
+        mSwipeRefreshLayout.setRefreshing(true);
     }
+
+    /**
+     * Вывод списка исполнителей на экран, скрытие прогрессбара
+     *
+     * @param artistList - список исполнителей
+     */
 
     @Override
     public void showList(List<Artist> artistList) {
         mAdapter.setArtistList(artistList);
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
-    private void makeToast(String text) {
-        Snackbar.make(mToolbar, text, Snackbar.LENGTH_LONG).show();
-    }
+    /**
+     * Выводится ошбика во всплывающем собщении
+     *
+     * @param error - сообщение об ошибке
+     */
 
     @Override
     public void showError(String error) {
-        makeToast(error);
+        mSwipeRefreshLayout.setRefreshing(false);
+        showToast(error);
     }
+
+    /**
+     * Отображение сообщнения о пустом списке
+     */
 
     @Override
     public void showEmptyList() {
+        mSwipeRefreshLayout.setRefreshing(false);
         mRecyclerView.setVisibility(View.GONE);
         mNoData.setVisibility(View.VISIBLE);
     }
+
+    /**
+     * Вызов сохраненного состояния экрана из бандла и восстановление его из презентера
+     *
+     * @param outState - баднл с сохранённым состоянием
+     */
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mPresenter.onSaveInstanceState(outState);
     }
+
+    /**
+     * Вывод сообщения во всплывающем контейнере
+     *
+     * @param message - сообщение
+     */
 
     @Override
     public void showToast(String message) {

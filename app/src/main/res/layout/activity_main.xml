@@ -18,12 +18,17 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/artistList_recyclerView_mainActivity"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout_mainActivity"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/artistList_recyclerView_mainActivity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <RelativeLayout
             android:id="@+id/noData_layout_mainActivity"
@@ -33,10 +38,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
                 android:layout_centerInParent="true"
+                android:text="@string/empty_list"
                 android:textColor="@android:color/black"
-                android:text="@string/empty_list" />
+                android:textSize="22sp" />
         </RelativeLayout>
     </LinearLayout>
 
