@@ -81,7 +81,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
                 Pair<View, String> p5 = Pair.create(holder.cover, "note");
                 Pair<View, String> p6 = Pair.create(holder.cover, "name");
                 ActivityOptions options = ActivityOptions
-                        .makeSceneTransitionAnimation((Activity) mContext, p1, p2, p4, p5, p6);
+                        .makeSceneTransitionAnimation((Activity) mContext, p1, p2, p3, p4, p5, p6);
                 mContext.startActivity(intent, options.toBundle());
             }
         });
