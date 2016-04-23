@@ -56,6 +56,7 @@ public class UiTest {
                 RecyclerViewActions.scrollToPosition(128));
         onItemClick();
         onView(withText("Tove Lo")).check(matches(isDisplayed()));
+        onView(withId(R.id.refresh_fab_mainActivity)).check(matches(isDisplayed())).perform(click());
     }
 
     /**
