@@ -11,6 +11,9 @@ import javax.inject.Inject;
 import rx.Subscription;
 import rx.subscriptions.Subscriptions;
 
+/**
+ * Реализация презентера для второго экрана
+ */
 public class DetailPresenter implements IDetailPresenter {
 
     private static final String BUNDLE_DETAIL_KEY = "BUNDLE_DETAIL_KEY";
@@ -18,20 +21,37 @@ public class DetailPresenter implements IDetailPresenter {
     private IDetailView view;
     private Artist artist;
 
+    /**
+     * Конструктор для DI
+     */
     @Inject
     public DetailPresenter() {
     }
 
+    /**
+     * Конструктор для тестов
+     * @param view - интерфейс экрана для мокирования
+     * @param artist
+     */
     public DetailPresenter(IDetailView view, Artist artist) {
         this.view = view;
         this.artist = artist;
     }
 
+    /**
+     * Метод для вывода данных на экран
+     * @param artist - данные для вывода
+     */
     @Override
     public void showData(Artist artist) {
         view.showData(artist);
     }
 
+    /**
+     * Инициализация экрана и инъекция данных.
+     * @param savedInstanceState - bundle с данными для восстановления
+     * @param view - экран, с которым презентер будет взаимодействовать
+     */
     @Override
     public void onCreate(Bundle savedInstanceState, IView view) {
         this.view = (IDetailView) view;
@@ -43,6 +63,11 @@ public class DetailPresenter implements IDetailPresenter {
         }
     }
 
+    /**
+     * Сохранение состояния View и данных на экране, для их последующего восстановления, при
+     * разрушении View.
+     * @param outState - bundle с данными для восстановления
+     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         if (artist != null) {

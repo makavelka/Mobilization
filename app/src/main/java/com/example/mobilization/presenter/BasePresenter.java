@@ -5,6 +5,9 @@ import javax.inject.Inject;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
+/**
+ * Абстрактный класс, наследуемый от общего презентера и реализующего метод onStop
+ */
 public abstract class BasePresenter implements Presenter {
 
     @Inject
