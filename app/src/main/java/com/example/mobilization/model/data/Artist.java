@@ -10,6 +10,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * POJO класс, хранящий данные об исполнителе, в который будут конвертироваться приходящие
+ * данные JSON.
+ * Используемые аннотации предоставляются библиотекой GSON.
+ * Реализован интерфейс Parcelable, для передачи данных между экранами.
+ */
 public class Artist implements Parcelable{
 
     @SerializedName("id")

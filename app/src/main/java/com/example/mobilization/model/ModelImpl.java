@@ -13,6 +13,10 @@ import javax.inject.Named;
 import rx.Observable;
 import rx.Scheduler;
 
+
+/**
+ * Реализация интерфейса {@link Model}
+ */
 public class ModelImpl implements Model {
 
     @Inject

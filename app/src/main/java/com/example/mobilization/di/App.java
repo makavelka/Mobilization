@@ -14,12 +14,20 @@ public class App extends Application {
         return component;
     }
 
+    /**
+     * Создание графа зависимостей DI при старте приложения
+     */
     @Override
     public void onCreate() {
         super.onCreate();
         component = buildComponent();
     }
 
+    /**
+     * Метод собирающий граф зависимостей для DI.
+     * Вызывается в классе Application для доступа по всему приложению.
+     * @return граф зависимостей DI
+     */
     protected AppComponent buildComponent() {
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(App.this))

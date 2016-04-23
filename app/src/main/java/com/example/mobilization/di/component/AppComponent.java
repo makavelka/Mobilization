@@ -21,17 +21,31 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 
+/**
+ * Компонент для DI, который предоставляет данные в классы, заключенные в конструкцию void inject(ClassName.class);
+ * Предоставляемые данные берутся из модулей, включенных в компонент в конструкции modules = {Class<T>...}
+ */
+
 @Singleton
 @Component(modules = {PresenterModule.class, ViewModule.class, ModelModule.class, AppModule.class, UtilsModule.class, PicassoModule.class})
 public interface AppComponent {
     void inject(ModelImpl model);
+
     void inject(ArtistListPresenter presenter);
+
     void inject(MainActivity activity);
+
     void inject(BasePresenter presenter);
+
     void inject(Utils utils);
+
     void inject(ResponseCacheInterceptor interceptor);
+
     void inject(ApiService api);
+
     void inject(ArtistAdapter adapter);
+
     void inject(PicassoService picassoService);
+
     void inject(DetailActivity activity);
 }

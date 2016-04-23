@@ -7,6 +7,11 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * POJO класс, хранящий данные об обложках, в который будут конвертироваться приходящие данные JSON.
+ * Используемые аннотации предоставляются библиотекой GSON.
+ * Реализован интерфейс Parcelable, для передачи данных между экранами.
+ */
 public class Cover implements Parcelable {
 
     @SerializedName("small")

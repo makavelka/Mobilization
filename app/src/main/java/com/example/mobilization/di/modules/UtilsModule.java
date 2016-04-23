@@ -7,6 +7,10 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+
+/**
+ * Модуль, предоставляющий вспомогательные классы
+ */
 @Module
 public class UtilsModule {
 

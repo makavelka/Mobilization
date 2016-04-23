@@ -13,9 +13,19 @@ import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+/**
+ * Модуль, предоставляющий вспомогательные данные для работы слоя Model
+ */
+
 @Module
 public class ModelModule {
 
+    /**
+     * Предоставляет шедулер для Rx, который будет работать в главном потоке.
+     * Используется для вывода полученных данных на экран.
+     *
+     * @return шедулер главного потока.
+     */
     @Provides
     @Singleton
     @Named(Const.UI_THREAD)
@@ -23,6 +33,12 @@ public class ModelModule {
         return AndroidSchedulers.mainThread();
     }
 
+    /**
+     * Предоставляет шедулер для Rx, который будет работать с данными в фоне.
+     * Используется для получения данных.
+     *
+     * @return шедулер для фоновой работы.
+     */
     @Provides
     @Singleton
     @Named(Const.IO_THREAD)
@@ -30,6 +46,12 @@ public class ModelModule {
         return Schedulers.io();
     }
 
+
+    /**
+     * Предоставляет интерфейс, который запрашивает данные по REST.
+     *
+     * @return интерфейс для получения данных.
+     */
     @Provides
     @Singleton
     ApiInterface provideArtistService() {
