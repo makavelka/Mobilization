@@ -232,7 +232,9 @@ public class Artist implements Parcelable{
         for (String s: genres) {
             list += s + " / ";
         }
-        list = list.substring(0, list.length()-2);
+        if (list.length() > 2) {
+            list = list.substring(0, list.length() - 2);
+        }
         return list;
     }
 
