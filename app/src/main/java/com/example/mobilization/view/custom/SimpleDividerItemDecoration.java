@@ -1,4 +1,4 @@
-package com.example.mobilization.view;
+package com.example.mobilization.view.custom;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -8,6 +8,10 @@ import android.view.View;
 
 import com.example.mobilization.R;
 
+
+/**
+ * Вспомогательный класс для отрисовки разделителя в списке
+ */
 public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration{
     private Drawable mDivider;
 
