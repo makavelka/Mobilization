@@ -4,7 +4,6 @@ import com.example.mobilization.BaseTest;
 import com.example.mobilization.model.api.ApiInterface;
 import com.example.mobilization.model.api.ApiService;
 import com.example.mobilization.model.data.Artist;
-import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.mockwebserver.Dispatcher;
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
@@ -18,9 +17,6 @@ import org.junit.Test;
 import java.util.List;
 
 import rx.observers.TestSubscriber;
-
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
 
 public class ApiInterfaceTest extends BaseTest {
 
@@ -47,7 +43,6 @@ public class ApiInterfaceTest extends BaseTest {
         };
 
         server.setDispatcher(dispatcher);
-        HttpUrl baseUrl = server.url("/");
         apiInterface = new ApiService().getApiService();
     }
 
@@ -57,7 +52,6 @@ public class ApiInterfaceTest extends BaseTest {
 
         TestSubscriber<List<Artist>> testSubscriber = new TestSubscriber<>();
         apiInterface.getArtists().subscribe(testSubscriber);
-
         testSubscriber.assertNoErrors();
         testSubscriber.assertValueCount(1);
 
@@ -68,17 +62,6 @@ public class ApiInterfaceTest extends BaseTest {
         Assert.assertEquals("http://www.tove-lo.com/", actual.get(0).getLink());
         Assert.assertEquals(1080505L, (long) actual.get(0).getId());
     }
-
-    @Test
-    public void testGetArtistsIncorrect() throws Exception {
-        try {
-            apiInterface.getArtists().subscribe();
-            fail();
-        } catch (Exception expected) {
-            assertEquals("HTTP 404 OK", expected.getMessage());
-        }
-    }
-
 
     @After
     public void tearDown() throws Exception {
