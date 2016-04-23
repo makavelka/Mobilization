@@ -2,11 +2,10 @@ package com.example.mobilization.model.api;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
-import com.example.mobilization.R;
 import com.example.mobilization.Utils;
 import com.example.mobilization.di.App;
+import com.example.mobilization.presenter.ArtistListPresenter;
 
 import java.io.IOException;
 
@@ -44,9 +43,6 @@ public class ResponseCacheInterceptor implements Interceptor {
         if (mUtils.isInternetConnected()) {
             // если есть подключение к интернету, обновляем данные.
             request.cacheControl(CacheControl.FORCE_NETWORK);
-        } else {
-            //Вывод сообщения, если подключение отсутствует
-            Toast.makeText(mContext, mContext.getString(R.string.no_internet), Toast.LENGTH_LONG).show();
         }
         Response response = chain.proceed(request.build());
         return response.newBuilder()
