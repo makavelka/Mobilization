@@ -37,7 +37,8 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
     private List<Artist> artistList = new ArrayList<>();
     private Context mContext;
 
-    @Inject Picasso mPicasso;
+    @Inject
+    Picasso mPicasso;
 
     public ArtistAdapter(Context mContext) {
         App.getComponent().inject(this);
@@ -46,6 +47,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
     /**
      * Метод выводящий переданный список на экран
+     *
      * @param repoList - список исполнителей
      */
 
@@ -91,14 +93,22 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
                 .into(holder.cover);
     }
 
-
     /**
-     *
      * @return количество записей в адаптере
      */
     @Override
     public int getItemCount() {
         return artistList.size();
+    }
+
+    /**
+     * Возвращает информацию об исполнителе
+     *
+     * @param position - позиция в списке
+     * @return - исполнитель
+     */
+    public Artist getItem(int position) {
+        return artistList.get(position);
     }
 
     /**
