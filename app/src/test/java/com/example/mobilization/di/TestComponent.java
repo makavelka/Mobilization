@@ -11,6 +11,7 @@ import com.example.mobilization.model.ApiInterfaceTest;
 import com.example.mobilization.model.ModelImplTest;
 import com.example.mobilization.presenter.ArtistListPresenterTest;
 import com.example.mobilization.presenter.DetailPresenterTest;
+import com.example.mobilization.view.AdapterTest;
 import com.example.mobilization.view.MainActivityTest;
 
 import javax.inject.Singleton;
@@ -25,4 +26,5 @@ public interface TestComponent extends AppComponent {
     void inject(ApiInterfaceTest apiInterfaceTest);
     void inject(MainActivityTest mainActivityTest);
     void inject(DetailPresenterTest detailPresenterTest);
+    void inject(AdapterTest adapterTest);
 }
