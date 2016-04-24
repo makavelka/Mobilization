@@ -11,4 +11,5 @@ public interface IDetailView extends IView{
     Artist loadDataFromIntent();
     void showData(Artist artist);
     void openUrl(String url);
+    void showError();
 }

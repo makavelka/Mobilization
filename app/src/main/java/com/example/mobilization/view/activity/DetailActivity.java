@@ -109,6 +109,11 @@ public class DetailActivity extends AppCompatActivity implements IDetailView, Na
         startActivity(i);
     }
 
+    @Override
+    public void showError() {
+        showToast(getString(R.string.error));
+    }
+
     /**
      * Вывод сообщения во всплывающем контейнере
      *

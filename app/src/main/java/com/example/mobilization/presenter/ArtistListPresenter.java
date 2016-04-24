@@ -72,9 +72,11 @@ public class ArtistListPresenter extends BasePresenter implements IArtistListPre
                     @Override
                     public void onError(Throwable e) {
                         view.showEmptyList();
-                        if (e instanceof HttpException)
+                        if (e instanceof HttpException) {
                             view.showError(mContext.getString(R.string.no_internet));
-                        e.printStackTrace();
+                            return;
+                        }
+                        view.showError(mContext.getString(R.string.error));
                     }
 
                     @Override

@@ -7,4 +7,5 @@ import com.example.mobilization.model.data.Artist;
  */
 public interface IDetailPresenter extends Presenter {
     void showData(Artist artist);
+    void showError();
 }

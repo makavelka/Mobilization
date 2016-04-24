@@ -3,4 +3,5 @@
     <string name="empty_list">Нет данных для показа</string>
     <string name="bio">Биография</string>
     <string name="no_internet">Отсутствует подключение к интернету</string>
+    <string name="error">Произошла ошибка при загрузке данных</string>
 </resources>

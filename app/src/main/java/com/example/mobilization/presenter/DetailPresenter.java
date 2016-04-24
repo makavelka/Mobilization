@@ -44,7 +44,14 @@ public class DetailPresenter implements IDetailPresenter {
      */
     @Override
     public void showData(Artist artist) {
-        view.showData(artist);
+        if (artist != null)
+            view.showData(artist);
+        else showError();
+    }
+
+    @Override
+    public void showError() {
+        view.showError();
     }
 
     /**
