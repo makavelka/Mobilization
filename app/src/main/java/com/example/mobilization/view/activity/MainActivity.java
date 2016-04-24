@@ -132,6 +132,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Скачать данные заново
+     */
     @OnClick(R.id.refresh_fab_mainActivity)
     public void refresh() {
         mPresenter.getData();
