@@ -1,5 +1,7 @@
 package com.example.mobilization.view.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +37,8 @@ public class DetailActivity extends AppCompatActivity implements IDetailView, Na
     Toolbar mToolbar;
     @Bind(R.id.title_textView_toolbar)
     TextView mTitle;
+    @Bind(R.id.url_textView_detailActivity)
+    TextView mUrl;
 
     @Inject
     Picasso mPicasso;
@@ -85,11 +89,24 @@ public class DetailActivity extends AppCompatActivity implements IDetailView, Na
         mCount.setText(artist.getMusicCount());
         mGenres.setText(artist.getGenresList());
         mTitle.setText(artist.getName());
+        mUrl.setText(artist.getLink());
+        mUrl.setOnClickListener(e -> openUrl(artist.getLink()));
         mPicasso.with(this)
                 .load(artist.getCover().getSmall())
                 .placeholder(R.drawable.placeholder_big)
                 .fit()
                 .into(mCover);
+    }
+
+    /**
+     * Открывает ссылку во встроенном браузере
+     * @param url - ссылка
+     */
+    @Override
+    public void openUrl(String url) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 
     /**

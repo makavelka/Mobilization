@@ -10,4 +10,5 @@ import com.example.mobilization.model.data.Artist;
 public interface IDetailView extends IView{
     Artist loadDataFromIntent();
     void showData(Artist artist);
+    void openUrl(String url);
 }
