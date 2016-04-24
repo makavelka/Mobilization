@@ -52,13 +52,14 @@ repositories {
 repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 }
-
+//таск для запуска тестов, с помощью Cucumber
 task runCucuTests(type: Exec, dependsOn: 'installDebug') {
     commandLine "${android.sdkDirectory}" + "/platform-tools/adb", 'shell', 'am', 'instrument', '-e', 'com.example.mobilization.CucumberActivitySteps', '/',
             '-w', 'com.example.mobilization/.Instrumentation', 'echo', 'on'
 //    finalizedBy('afterTests')
 }
 
+//Такс для копирования отчетов с устройства на компьютер
 task afterTests(type: Exec, dependsOn: runCucuTests) {
     commandLine "${android.sdkDirectory}" + "/platform-tools/adb", 'pull', "/sdcard/com.example.mobilization/html", System.getProperty("user.dir") + "/cucumber_reports"
 }
