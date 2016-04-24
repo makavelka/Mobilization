@@ -45,7 +45,30 @@
 
 ###Использованные библиотеки
 
-[OkHttpClient](http://square.github.io/okhttp/) 
-[OkHttpClient](http://square.github.io/okhttp/) 
-[OkHttpClient](http://square.github.io/okhttp/) 
-[OkHttpClient](http://square.github.io/okhttp/) 
+####Для работы приложения:
+  [ButterKnife](http://jakewharton.github.io/butterknife/) 
+
+  [RxAndroid](https://github.com/ReactiveX/RxAndroid) 
+
+  [RxJava](https://github.com/ReactiveX/RxJava) 
+
+  [Retrofit 2](http://square.github.io/retrofit/) 
+  
+  [Picasso](http://square.github.io/picasso/) 
+    
+  [Dagger 2](http://google.github.io/dagger/) 
+
+####Для unit-тестов:
+
+  [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver) 
+    
+  [Mockito](http://mockito.org/) 
+    
+  [Robolectric](http://robolectric.org/) 
+  
+####Для ui-тестов:
+
+  [Espresso](https://google.github.io/android-testing-support-library/docs/espresso/index.html) 
+    
+  [Cucumber](https://cucumber.io/) 
+
