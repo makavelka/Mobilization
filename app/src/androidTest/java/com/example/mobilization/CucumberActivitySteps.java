@@ -30,11 +30,20 @@ import static com.example.mobilization.OrientationChangeAction.orientationLandsc
 import static com.example.mobilization.OrientationChangeAction.orientationPortrait;
 import static org.hamcrest.core.IsAnything.anything;
 
-@CucumberOptions(glue = "com.example.mobilization", format = {"pretty", "html:/sdcard/com.example.mobilization/html",
-        "json:/sdcard/com.example.mobilization/jreport"},
-        features = "features/test_ui.feature")
+/**
+ * Действия, которые возможно совершить в интерфейсе данного приложения.
+ * Необходимы для создания сценариев, на основе которых Cucumber будет создавать тест.
+ *
+ */
+@CucumberOptions(glue = "com.example.mobilization",
+        format = {"pretty", "html:/sdcard/com.example.mobilization/html",
+        "json:/sdcard/com.example.mobilization/jreport"}, //путь для сохранения отчетов
+        features = "features/test_ui.feature")//путь к файлу сценария
 public class CucumberActivitySteps extends ActivityInstrumentationTestCase2<MainActivity> {
 
+    /**
+     * Первоначальная настройка теста
+     */
     @Before
     public void before() {
         Instrumentation instrumentation = getInstrumentation();
@@ -79,6 +88,11 @@ public class CucumberActivitySteps extends ActivityInstrumentationTestCase2<Main
         activity.getWindow().getDecorView().draw(canvas);
     }
 
+    /**
+     * Создание скриншота экрана при неудачном выполнении теста
+     * @param scenario
+     * @throws IOException
+     */
     @After
     public void someAction(Scenario scenario) throws IOException {
         if (scenario.isFailed()) {

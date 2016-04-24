@@ -14,6 +14,9 @@ import java.util.Collection;
 
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 
+/**
+ * Вспомогательный класс для Espresso, который осуществляет поворот экрана
+ */
 public class OrientationChangeAction implements ViewAction {
     private final int orientation;
 

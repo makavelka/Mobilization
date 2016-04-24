@@ -23,11 +23,16 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.example.mobilization.OrientationChangeAction.orientationLandscape;
 import static junit.framework.Assert.assertNotNull;
 
-
+/**
+ * Ui тест для проверки работы списка
+ */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class UiTest {
 
+    /**
+     * Инициализация
+     */
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
             MainActivity.class);
@@ -43,14 +48,15 @@ public class UiTest {
     public void testList() throws InterruptedException {
         //Проверка активити на null
         assertNotNull(mActivity);
-        //Поворот экрана
         //Скролл к элекменту
         onView(withId(R.id.artistList_recyclerView_mainActivity)).perform(
                 RecyclerViewActions.scrollToPosition(54));
         onItemClick();
         //Проверка данных, выведеных на второй экран
         onView(withText("Tove Lo")).check(matches(isDisplayed()));
+        //Нажатие кнопки назад
         Espresso.pressBack();
+        //Поворот экрана
         onView(isRoot()).perform(orientationLandscape());
         onView(withId(R.id.artistList_recyclerView_mainActivity)).perform(
                 RecyclerViewActions.scrollToPosition(128));
