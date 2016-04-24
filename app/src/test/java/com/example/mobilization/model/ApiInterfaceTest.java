@@ -18,11 +18,18 @@ import java.util.List;
 
 import rx.observers.TestSubscriber;
 
+/**
+ * Тест для проверки работы с данными
+ */
 public class ApiInterfaceTest extends BaseTest {
 
     private MockWebServer server;
     private ApiInterface apiInterface;
 
+    /**
+     * Первоначальная настройка мокированного сервера и инъекция зависимостей
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -33,11 +40,12 @@ public class ApiInterfaceTest extends BaseTest {
 
             @Override
             public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
-
+                //Если запрос совпадает с url сервера с данными, то вернуть json из локального файла
                 if (request.getPath().equals("/download.cdn.yandex.net/mobilization-2016/artists.json")) {
                     return new MockResponse().setResponseCode(200)
                             .setBody(testUtils.readString("raw/test.json"));
                 }
+                //Если нет, то ошибку 404
                 return new MockResponse().setResponseCode(404);
             }
         };
@@ -46,7 +54,10 @@ public class ApiInterfaceTest extends BaseTest {
         apiInterface = new ApiService().getApiService();
     }
 
-
+    /**
+     * Проверка данных, полученных с мокированного сервера на правильность
+     * @throws Exception
+     */
     @Test
     public void testGetArtists() throws Exception {
 

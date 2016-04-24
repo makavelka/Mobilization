@@ -7,6 +7,11 @@ import com.example.mobilization.di.component.AppComponent;
 
 public class TestApp extends App {
 
+    /**
+     * Метод собирающий граф зависимостей для DI.
+     * Вызывается в классе Application для доступа по всему приложению.
+     * @return граф зависимостей DI
+     */
     @Override
     protected AppComponent buildComponent() {
         return DaggerTestComponent.builder()

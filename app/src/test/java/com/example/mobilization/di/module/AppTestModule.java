@@ -9,6 +9,10 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Модуль, предоставляющий контекст приложения
+ */
+
 @Module
 public class AppTestModule {
     private TestApp mApp;

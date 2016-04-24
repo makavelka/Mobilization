@@ -9,22 +9,23 @@ import java.io.InputStream;
 
 public class TestUtils {
 
+    //инициализация Gson
     private Gson gson = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
 
-    public void log(String log) {
-        System.out.println(log);
-    }
-
+    /**
+     * Получить экземпляр библиотеки Gson
+     * @return - Gson
+     */
     public Gson getGson() {
         return gson;
     }
 
-
-    public <T> T readJson(String fileName, Class<T> inClass) {
-        return gson.fromJson(readString(fileName), inClass);
-    }
-
+    /**
+     * Чтение строки из файла
+     * @param fileName - имя файла
+     * @return - строка, считанная с файла
+     */
     public String readString(String fileName) {
         InputStream stream = getClass().getClassLoader().getResourceAsStream(fileName);
         try {

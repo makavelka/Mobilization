@@ -36,6 +36,10 @@ public class ModelImplTest extends BaseTest {
     @Named(Const.IO_THREAD)
     Scheduler ioThread;
 
+    /**
+     * Первоначальная настройка теста и инъекция зависимостей
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -43,6 +47,11 @@ public class ModelImplTest extends BaseTest {
         model = new ModelImpl();
     }
 
+
+    /**
+     * Проверка данных, полученных с локального хранилища на правильность
+     * @throws Exception
+     */
     @Test
     public void testGetArtistList() {
         Artist[] artists = testUtils.getGson().fromJson(testUtils.readString("json/test.json"), Artist[].class);

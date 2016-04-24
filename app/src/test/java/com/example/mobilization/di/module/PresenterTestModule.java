@@ -15,21 +15,39 @@ import rx.subscriptions.CompositeSubscription;
 
 import static org.mockito.Mockito.mock;
 
+/**
+ * Модуль, предоставляющий данные, для тестирования слоя Presenter
+ */
 @Module
-public class PresenterTestModule extends PresenterModule{
+public class PresenterTestModule extends PresenterModule {
 
+    /**
+     * Предоставляет заглушку слоя Model
+     *
+     * @return - Model
+     */
     @Provides
     @Singleton
     Model provideModel() {
         return mock(Model.class);
     }
 
+    /**
+     * Предоставляет заглушку слоя View для первого экрана
+     *
+     * @return - View
+     */
     @Provides
     @Singleton
     IMainView provideArtistListView() {
         return Mockito.mock(IMainView.class);
     }
 
+    /**
+     * Предоставляет заглушку слоя View для второго экрана
+     *
+     * @return - View
+     */
     @Provides
     @Singleton
     IDetailView provideArtistDetailsView() {

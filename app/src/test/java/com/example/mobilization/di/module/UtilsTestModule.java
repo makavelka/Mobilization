@@ -10,6 +10,9 @@ import dagger.Provides;
 
 import static org.mockito.Mockito.mock;
 
+/**
+ * Модуль, предоставляющий заглушку вспомогательного класса
+ */
 @Module
 public class UtilsTestModule extends UtilsModule {
 

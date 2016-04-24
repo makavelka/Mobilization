@@ -12,6 +12,9 @@ import org.junit.Test;
 
 import javax.inject.Inject;
 
+import rx.Observable;
+
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -26,7 +29,10 @@ public class DetailPresenterTest extends BaseTest {
     private IDetailView mockView;
     private DetailPresenter mDetailPresenter;
 
-
+    /**
+     * Первоначальная настройка теста и инъекция данных
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -34,6 +40,10 @@ public class DetailPresenterTest extends BaseTest {
         mockView = mock(IDetailView.class);
         mDetailPresenter = new DetailPresenter(mockView, artist);
     }
+
+    /**
+     * Тест на правильность отображения пустого списка с данными
+     */
 
     @Test
     public void testLoadData() {
@@ -43,24 +53,21 @@ public class DetailPresenterTest extends BaseTest {
         verify(mockView).showData(artist);
     }
 
-//    @Test
-//    public void testLoadNullData() {
-//        doAnswer(invocation -> Observable.just(null))
-//                .when(model)
-//                .getArtistList();
-//        mDetailPresenter.showData(null);
-//        verify(mockView).showToast("error");
-//    }
+    /**
+     * Тест на правильность обработки ошибки
+     */
+    @Test
+    public void testLoadNullData() {
+        doAnswer(invocation -> Observable.just(null))
+                .when(model)
+                .getArtistList();
+        mDetailPresenter.showData(null);
+        verify(mockView).showError();
+    }
 
-//    @Test
-//    public void testOnError() {
-//        doAnswer(invocation -> Observable.error(new Throwable()))
-//                .when(model)
-//                .getArtistList();
-//        mDetailPresenter.getData();
-//        verify(mockView).showError("error");
-//    }
-
+    /**
+     * Тест на правильность восстановления данных с бандла
+     */
     @Test
     public void testSaveState() {
         mDetailPresenter.onCreate(null, mockView);

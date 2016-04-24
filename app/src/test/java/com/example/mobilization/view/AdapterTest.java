@@ -27,6 +27,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+/**
+ * Тест для проверки адаптера
+ */
 public class AdapterTest extends BaseTest {
     private ArtistAdapter adapter;
     private LayoutInflater layoutInflater;
@@ -37,6 +40,10 @@ public class AdapterTest extends BaseTest {
     @Inject
     Context mContext;
 
+    /**
+     * Первоначальная настройка теста и инъекция данных
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -45,18 +52,27 @@ public class AdapterTest extends BaseTest {
         adapter = new ArtistAdapter(mContext);
     }
 
+    /**
+     * Проверка на пустоту адаптера, адаптер не пустой
+     */
     @Test
     public void adapterNotEmpty() {
         adapter.setArtistList(artistList);
         assertEquals(4, adapter.getItemCount());
     }
 
+    /**
+     * Проверка на пустоту адаптера, адаптер пустой
+     */
     @Test
     public void getCount_shouldReturn0FromEmptyList() {
         adapter.setArtistList(emptyList());
         assertEquals(0, adapter.getItemCount());
     }
 
+    /**
+     * Проверка на правильность отображения количества данных
+     */
     @Test
     public void getCount_shouldReturnCountFromList() {
         List<Artist> artists = new ArrayList<>();
@@ -68,6 +84,10 @@ public class AdapterTest extends BaseTest {
         assertEquals(3, adapter.getItemCount());
     }
 
+
+    /**
+     * Проверка на правильность получения данных
+     */
     @Test
     public void getItem_shouldReturnItemsFromList() {
         List<Artist> artists = new ArrayList<>();

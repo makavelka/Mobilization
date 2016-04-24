@@ -19,15 +19,24 @@ import rx.schedulers.Schedulers;
 
 import static org.mockito.Mockito.mock;
 
+/**
+ * Модуль, предоставляющий вспомогательные данные для тестирования слоя Model
+ */
+
 @Module
 public class ModelTestModule extends ModelModule {
 
     private TestUtils testUtils;
+    private Artist[] artists;
 
     public ModelTestModule() {
         testUtils = new TestUtils();
     }
 
+    /**
+     * Предоставляет заглушку интерфейса получения данных
+     * @return - мокированный интерфейс
+     */
     @Provides
     @Singleton
     ApiInterface provideApiInterface() {
@@ -48,17 +57,25 @@ public class ModelTestModule extends ModelModule {
         return Schedulers.immediate();
     }
 
+    /**
+     * Предоставляет тестовый список с данными, которые подгружаются с локального файла
+     * @return - список исполнителей
+     */
     @Provides
     @Singleton
     List<Artist> provideArtistList() {
-        Artist[] artists = testUtils.getGson().fromJson(testUtils.readString("json/test.json"), Artist[].class);
+        artists = testUtils.getGson().fromJson(testUtils.readString("json/test.json"), Artist[].class);
         return Arrays.asList(artists);
     }
 
+    /**
+     * Предоставляет тестовые данные об исполнителе, которые подгружаются с локального файла
+     * @return - данные об исполнителе
+     */
     @Provides
     @Singleton
     Artist provideArtis() {
-        Artist[] artists = testUtils.getGson().fromJson(testUtils.readString("json/test.json"), Artist[].class);
+        artists = testUtils.getGson().fromJson(testUtils.readString("json/test.json"), Artist[].class);
         return artists[0];
     }
 }

@@ -8,14 +8,25 @@ import dagger.Provides;
 
 import static org.mockito.Mockito.mock;
 
+/**
+ * Модуль, предоставляющий презентеры для тестирования слоя View
+ */
 @Module
 public class ViewTestModule  {
 
+    /**
+     * Возвращает заглушку презентера для первого экрана
+     * @return - презентер
+     */
     @Provides
     ArtistListPresenter provideArtistListPresenter() {
         return mock(ArtistListPresenter.class);
     }
 
+    /**
+     * Возвращает заглушку презентера для второго экрана
+     * @return - презентер
+     */
     @Provides
     DetailPresenter provideDetailPresenter() {
         return mock(DetailPresenter.class);

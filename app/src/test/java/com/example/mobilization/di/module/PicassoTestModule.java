@@ -9,6 +9,9 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Модуль, предоставляющий экземпляр класса Picasso, который используется для загрузки изображений
+ */
 @Module
 public class PicassoTestModule extends PicassoModule {
     @Provides
